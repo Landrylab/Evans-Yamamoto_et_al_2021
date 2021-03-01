@@ -1,4 +1,12 @@
-# RCP-PCR
-Jupyter notebook for analyzing RCP-PCR data of barcoded pDEST-AD and pDEST-DB plasmids.
+# BFG-Y2H related codes
+
+## RCP-PCR analysis
+
+## Monte-carlo simulation of screening proccess
+
+## BFG-Y2H score computation
 
 Dependicies:
+Jupyter notebook
+Python 3
+BLAST+
