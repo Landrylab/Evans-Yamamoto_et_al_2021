@@ -9,7 +9,7 @@ Dependicies:
 
 ## RCP-PCR analysis
 
-## Monte-carlo simulation of BFG-Y2H screening proccess
+## Monte-carlo simulation of BFG screening proccess
 
 ## BFG-Y2H score computation
 
