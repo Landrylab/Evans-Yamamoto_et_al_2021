@@ -4,6 +4,9 @@ Dependicies:
     Python 3
     BLAST+
 
+## Overview
+In Barcode Fusion Genetics, hfoewhofew
+
 
 ## RCP-PCR analysis
 
