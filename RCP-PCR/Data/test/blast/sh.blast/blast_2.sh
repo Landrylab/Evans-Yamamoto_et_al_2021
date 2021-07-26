@@ -1,1 +1,0 @@
-blastn -task blastn-short -strand plus -db /Users/danyamamotoevans/GitHub/BFG-Y2H/RCP-PCR/const-seq.fna -outfmt 10 -evalue 1e-3 -query /Users/danyamamotoevans/GitHub/BFG-Y2H/RCP-PCR/Data/test/fragmented_fasta/test_R2_1.fna -out /Users/danyamamotoevans/GitHub/BFG-Y2H/RCP-PCR/Data/test/blast/out.blast/test_R2_1.blast
