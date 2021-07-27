@@ -333,10 +333,16 @@ def parse_blast_out(PATH,run_name,db_fna):
                 if "name" in D2[read]["R1"]:
                     if "name" in D2[read]["R2"]:
                         P_TAG_comb = "P%02d-P%02d"%(P1_num,P2_num)
-                        name1    = D2[read]["R1"]["name"].replace("c","")
+                        if D2[read]["R1"]["name"][0] =="c":
+                            name1    = D2[read]["R1"]["name"][1:]
+                        else:
+                            name1    = D2[read]["R1"]["name"]
                         name1_BC = name1.split("-")[0]
                         name1_bfg= name1.split("-")[-1]
-                        name2    = D2[read]["R2"]["name"].replace("c","")
+                        if D2[read]["R2"]["name"][0] =="c":
+                            name2    = D2[read]["R2"]["name"][1:]
+                        else:
+                            name2    = D2[read]["R2"]["name"]
                         name2_BC = name2.split("-")[0]
                         name2_bfg= name2.split("-")[-1]
 
@@ -348,24 +354,24 @@ def parse_blast_out(PATH,run_name,db_fna):
                                 fuse_type = 'DnDn'
 
                         try:
-                            count[P_TAG_comb][name1][name2][fuse_type] +=1
+                            count[P_TAG_comb][name1_BC][name2_BC][fuse_type] +=1
                         except KeyError:
                             try:
-                                count[P_TAG_comb][name1][name2][fuse_type] = 1
+                                count[P_TAG_comb][name1_BC][name2_BC][fuse_type] = 1
                             except KeyError:
                                 try:
-                                    count[P_TAG_comb][name1][name2] = {}
-                                    count[P_TAG_comb][name1][name2][fuse_type] = 1
+                                    count[P_TAG_comb][name1_BC][name2_BC] = {}
+                                    count[P_TAG_comb][name1_BC][name2_BC][fuse_type] = 1
                                 except KeyError:
                                     try:
-                                        count[P_TAG_comb][name1] = {}
-                                        count[P_TAG_comb][name1][name2] = {}
-                                        count[P_TAG_comb][name1][name2][fuse_type] = 1
+                                        count[P_TAG_comb][name1_BC] = {}
+                                        count[P_TAG_comb][name1_BC][name2_BC] = {}
+                                        count[P_TAG_comb][name1_BC][name2_BC][fuse_type] = 1
                                     except KeyError:
                                             count[P_TAG_comb] = {}
-                                            count[P_TAG_comb][name1] = {}
-                                            count[P_TAG_comb][name1][name2] = {}
-                                            count[P_TAG_comb][name1][name2][fuse_type] = 1
+                                            count[P_TAG_comb][name1_BC] = {}
+                                            count[P_TAG_comb][name1_BC][name2_BC] = {}
+                                            count[P_TAG_comb][name1_BC][name2_BC][fuse_type] = 1
     print("Outputing the count data to %s/Data/%s/barcode_counts/counts.txt"%(PATH,run_name))
     with open('%s/Data/%s/barcode_counts/counts.txt'%(PATH,run_name), 'w') as file:
         file.write(json.dumps(count))

@@ -6,6 +6,7 @@ import re
 from pprint import pprint
 import numpy as np
 import itertools
+from tqdm import tqdm
 
 
 #############################
@@ -85,14 +86,15 @@ def get_tagdata(f):
 def tot_reads(counts,multiplex_tag):
     indecies = [i for i in multiplex_tag]
     indecies.sort()
+    print("Index","Sample","Total reads")
     for tag in indecies:
         c = 0
         st_n = 0
-        for st in counts[count][tag]:
-            for st2 in counts[count][tag][st]:
-                for bfg in counts[count][tag][st][st2]:
-                    c += counts[count][tag][st][st2][bfg]
-        print(tag,multiplex_tag[tag]["Sample"],"Total reads %d "%(c))
+        for st in counts[tag]:
+            for st2 in counts[tag][st]:
+                for bfg in counts[tag][st][st2]:
+                    c += counts[tag][st][st2][bfg]
+        print(tag,multiplex_tag[tag]["Sample"],"%d"%(c))
 
 def output_raw_reads(counts,tag,norm_dir):
     k = list(tag.keys())
@@ -144,6 +146,7 @@ def organize_data(data,map_table,tag_data,method):
     data2 = {}
     sums = {}
     alpha  = 1
+    print("Working on ...")
     barcode_fusion_type = ["UpUp","DnDn"]
     for index in tag_data:
         if index in data.keys():
@@ -197,18 +200,20 @@ def organize_data(data,map_table,tag_data,method):
                                     data2[selection][bait_ID][prey_ID][bait_BC_ver][prey_BC_ver][bfg]["count"] = count
 
             if method== "PCA":
+                #print(data[index])
                 for bait in map_table["DHFR3"]:
                     bait_ID = bait["ID"]
                     bait_BC_ID = bait["BC_ID"]
                     bait_BC_ver = bait["BC_ver"]
-                    if bait_ID not in data2[selection].keys():
+                    if bait_BC_ID not in data2[selection].keys():
                         data2[selection][bait_ID] = {}
+
 
                     for prey in map_table["DHFR12"]:
                         prey_ID = prey["ID"]
                         prey_BC_ID = prey["BC_ID"]
                         prey_BC_ver = prey["BC_ver"]
-                        if prey_ID not in data2[selection][bait_ID].keys():
+                        if prey_BC_ID not in data2[selection][bait_ID].keys():
                             data2[selection][bait_ID][prey_ID] = {}
 
                         for bfg in ["UpUp","DnDn"]:
@@ -219,7 +224,7 @@ def organize_data(data,map_table,tag_data,method):
                             except KeyError:
                                 raw = 0
                             count = raw + alpha
-
+                            #print(count)
                             try:
                                 data2[selection][bait_ID][prey_ID][bait_BC_ver][prey_BC_ver][bfg] = {}
                                 data2[selection][bait_ID][prey_ID][bait_BC_ver][prey_BC_ver][bfg]["raw"] = raw
@@ -533,7 +538,7 @@ def compute_s(data2,sums,map_table,tag_data,method):
 
     return data3,hap
 
-def count_haploids(PCA_hap,out_dir):
+def count_haploids(PCA_hap,out_dir,PCA_db):
 
     HAP = [["Screeening","Ori","Strain","F"]]
 
@@ -697,7 +702,7 @@ def compute_ds(data3,sums,map_table,tag_data,method):
     return data4,haploid_s_scores
 
 
-def output_norm_score(PCA_ds,out_dir):
+def output_norm_score(PCA_ds,PCA_db,out_dir):
     scores_LL = {}
 
     for bait in tqdm(PCA_ds):
@@ -724,7 +729,7 @@ def output_norm_score(PCA_ds,out_dir):
                         scores_LL[Norm_Method] = [["Method","Selection_condition","Screening_rep","Bait","Bait_ORF","Prey","Prey_ORF","Norm_Method","Average","Median","RANK1","RANK2","RANK3","RANK4","RANK5","RANK6","RANK7","RANK8"]]
 
     for Norm_Method in scores_LL:
-        LL2csv(scores_LL[Norm_Method],"%s/BFG-PCA_scores_Normalized.csv"%(out_dir))
+        LL2csv(scores_LL[Norm_Method],"%s/BFG-PCA_PPI_scores_Normalized.csv"%(out_dir))
 
 def output_stats(data,db,out_dir):
     #############################
