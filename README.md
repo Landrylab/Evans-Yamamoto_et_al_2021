@@ -31,9 +31,30 @@ blastn -help
 ```
     
 ## Overview
-In Barcode Fusion Genetics, hfoewhofew
+This script was built to perform experimental plans and data analysis for Barcode Fusion Genetics screenings. There are four main steps in this suit, which I have prepared jupyter-notebooks for each.
 
-## Monte-carlo simulation of BFG screening proccess
+- Monte-Carlo simulation
+- Barcode calling
+- Normalization
+- Performance measure
 
-## BFG analysis
+### Monte-carlo simulation of BFG screening proccess
+Since BFG screenings have multiple sampling steps while handling a complex pool of strains, we suimulate the sampling process with a Monte-Carlo simulation. This notebook follows the procedures of BFG screenings, and allows the user to estimate the nessesary paramaters for sampling. 
+
+
+### Barcode calling
+
+
+### Normalization
+
+### Performance measure
+
+
+
+
+### Refs
+- [Yachie _et al_, 2016](https://www.embopress.org/doi/full/10.15252/msb.20156660)
+- Evans--Yamamamto _et al_, 2021
+
+
 
