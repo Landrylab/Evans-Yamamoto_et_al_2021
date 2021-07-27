@@ -17,12 +17,12 @@ pip install .
 ```
 
 Other core programs to install:
-- (Jupyter-notebook)[https://jupyter.org/install]
+- [Jupyter-notebook](https://jupyter.org/install)
 ```sh
 pip install jupyterlab
 ```
-- (Commandline BLAST+)[] 
-Follow the (instruction manual)[https://www.ncbi.nlm.nih.gov/books/NBK569861/] for installation.
+- Commandline BLAST+
+Follow the [instruction manual](https://www.ncbi.nlm.nih.gov/books/NBK569861/) for installation.
 Set the PATH of the binary file.
 
 Execute the following to see if installation is complete.
