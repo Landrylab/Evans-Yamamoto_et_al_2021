@@ -54,7 +54,7 @@ Since BFG screenings have multiple sampling steps while handling a complex pool 
 
 ### Refs
 - [Yachie _et al_, 2016](https://www.embopress.org/doi/full/10.15252/msb.20156660)
-- Evans--Yamamamto _et al_, 2021
+- Evans-Yamamamto _et al_, 2021
 
 
 
