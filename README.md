@@ -1,11 +1,18 @@
 # Barcode Fusion Genetics related codes
 Dependicies:
-    Jupyter notebook
-    
+```sh
     Python 3
-    
-    BLAST+
+    numpy version >=1.19 
+    tqdm version >=2.2.4
+```
 
+Other core programs to install:
+```sh
+ Jupyter notebook
+
+    BLAST+ 
+```    
+    
 ## Overview
 In Barcode Fusion Genetics, hfoewhofew
 
