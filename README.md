@@ -3,7 +3,7 @@
 This page explains how to install and execute the BFG-PCA codes.
 Please go to the [BFG-PCA wiki](https://github.com/DanYamamotoEvans/BFG-PCA/wiki) for more information regarding the experimental setup and analysis.
 
-Dependicies:
+Dependencies :
 ```sh
 Python version >=3.5
 pip    version >= 1.1.0
