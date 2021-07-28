@@ -10,7 +10,7 @@ pip    version >= 1.1.0
 numpy  version >=1.19 
 tqdm   version >=2.2.4
 ```
-To install these pakcages, first clone thios repository by
+To install these pakcages, first clone this repository by
 ```sh
 git clone https://github.com/DanYamamotoEvans/BFG-PCA.git
 ```
