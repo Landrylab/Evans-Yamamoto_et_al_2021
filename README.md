@@ -15,7 +15,7 @@ To install these pakcages, first clone thios repository by
 git clone https://github.com/DanYamamotoEvans/BFG-PCA.git
 ```
 
-Next, go to the location of the BFG-PCA folder in the terminal, and install the dependecies by
+Next, go to the location of the BFG-PCA folder in the terminal, and install the dependencies by
 ```sh
 pip install .
 ```
