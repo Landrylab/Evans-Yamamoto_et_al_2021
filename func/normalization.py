@@ -731,7 +731,30 @@ def output_norm_score(PCA_ds,PCA_db,out_dir):
     for Norm_Method in scores_LL:
         LL2csv(scores_LL[Norm_Method],"%s/BFG-PCA_PPI_scores_Normalized.csv"%(out_dir))
 
-def output_stats(data,db,out_dir):
+
+
+
+def reformat(data):
+    D = {}
+
+    for bait in data:
+        for prey in data[bait]:
+            for cond in data[bait][prey]:
+                el = data[bait][prey][cond]
+
+                try:
+                    D[cond][bait][prey] = el
+                except KeyError:
+                    try:
+                        D[cond][bait] = {}
+                        D[cond][bait][prey] = el
+                    except KeyError:
+                        D[cond] = {}
+                        D[cond][bait] = {}
+                        D[cond][bait][prey] = el
+    return D
+
+def output_stats(data,hap_data,db,out_dir,method):
     #############################
     ## Outping stats as csv in 3_Stats_for_plot
     #############################
@@ -760,10 +783,10 @@ def output_stats(data,db,out_dir):
     screening_meth_corr         =  [['score_type','CondA','CondB','ConditonA_score','ConditonB_score']] #Average interanal replicates+ screeening replicates
 
     order = {}
-    dhfr12 = [ "%s-%s"%(i["ID"]) for i in db if (i["Type"] =="DHFR12")]
+    dhfr12 = [ "%s"%(i["ID"]) for i in db["DHFR12"]]
     dhfr12 = list(set(dhfr12))
     dhfr12.sort()
-    dhfr3 = [ "%s-%s"%(i["ID"]) for i in db if (i["Type"] =="DHFR3")]
+    dhfr3 = [ "%s"%(i["ID"]) for i in db["DHFR3"]]
     dhfr3 = list(set(dhfr3))
     dhfr3.sort()
 
@@ -776,6 +799,7 @@ def output_stats(data,db,out_dir):
     for i in dhfr3:
         order[i] = c
         c+=1
+    #pprint(order)
 
 
     for cond in data:
@@ -784,14 +808,12 @@ def output_stats(data,db,out_dir):
         replicate = cond.split("_")[1]
         if condition =="Control":
             for bait in data[cond]:
-                bait_ID    =  ("_").join(bait.split("_")[1:])
-                bait_order =  order[bait_ID]
+                bait_order =  order[bait]
 
                 bait_orf =  list(set([i["ORF_SYMBOL"] for i in db[bait.split("_")[0]] if (i['ID']==bait)] ))[0]
                 for prey in data[cond][bait]:
                     prey_orf =  list(set([i["ORF_SYMBOL"] for i in db[prey.split("_")[0]] if (i['ID']==prey)] ))[0]
-                    prey_ID    =  ("_").join(prey.split("_")[1:])
-                    prey_order =  order[prey_ID]
+                    prey_order =  order[prey]
 
                     for bait_rep in data[cond][bait][prey]:
                         b_order = "%s%s"%(bait_order,bait_rep)
@@ -815,17 +837,17 @@ def output_stats(data,db,out_dir):
                             F_heatmap.append(l2)
             if not os.path.isdir('%s/heatmap_F'%(out_dir)):
                 os.makedirs('%s/heatmap_F'%(out_dir))
-            LL2csv(F_heatmap,"%s/F_heatmap_%s_%s.csv"%(out_dir,condition,replicate))
+            LL2csv(F_heatmap,"%s/heatmap_F/F_heatmap_%s_%s.csv"%(out_dir,condition,replicate))
 
         else:
             for bait in data[cond]:
                 bait_orf =  list(set([i["ORF_SYMBOL"] for i in db[bait.split("_")[0]] if (i['ID']==bait)] ))[0]
-                bait_ID    =  ("_").join(bait.split("_")[1:])
-                bait_order =  order[bait_ID]
+
+                bait_order =  order[bait]
                 for prey in data[cond][bait]:
                     prey_orf =  list(set([i["ORF_SYMBOL"] for i in db[prey.split("_")[0]] if (i['ID']==prey)] ))[0]
-                    prey_ID    =  ("_").join(prey.split("_")[1:])
-                    prey_order =  order[prey_ID]
+
+                    prey_order =  order[prey]
 
                     for bait_rep in data[cond][bait][prey]:
                         b_order = "%s%s"%(bait_order,bait_rep)
@@ -845,17 +867,17 @@ def output_stats(data,db,out_dir):
             LL2csv(F_heatmap,"%s/F_heatmap_%s_%s.csv"%(out_dir,condition,replicate))
 
     LL2csv(strain_abundance_control,"%s/strain_abundance_control.csv"%(out_dir))
-
-    for cond in data:
+    D = {}
+    for cond in hap_data:
         condition = cond.split("_")[0]
         replicate = cond.split("_")[1]
         D[cond] = {}
-        for haploid in data[cond]:
+        for haploid in hap_data[cond]:
             category = haploid.split("_")[1]
             if category not in D[cond].keys():
                 D[cond][category] = []
             #print(data[cond][haploid])
-            med = data[cond][haploid]['median']
+            med = hap_data[cond][haploid]['median']
 
             l = [method,category,condition,replicate,haploid,med]
             D[cond][category].append(l)
@@ -878,7 +900,7 @@ def output_stats(data,db,out_dir):
     LL2csv(autoactivity_level,"%s/autoactivity_level.csv"%(out_dir))
 
     diploid_corr  =  [['Method','Conditon','Replicate','Diploid1','Diploid2']]
-
+    REPS = {}
     REPS[method] = {}
     for cond in data:
         s_heatmap              =  [['Method','Condition','Replicate','bait','prey','s']]
@@ -891,11 +913,11 @@ def output_stats(data,db,out_dir):
             for bait in data[cond]:
                 bait_orf =  list(set([i["ORF_SYMBOL"] for i in db[bait.split("_")[0]] if (i['ID']==bait)] ))[0]
                 bait_ID    =  ("_").join(bait.split("_")[1:])
-                bait_order =  order[bait_ID]
+                bait_order =  order[bait]
                 for prey in data[cond][bait]:
                     prey_orf =  list(set([i["ORF_SYMBOL"] for i in db[prey.split("_")[0]] if (i['ID']==prey)] ))[0]
                     prey_ID    =  ("_").join(prey.split("_")[1:])
-                    prey_order =  order[prey_ID]
+                    prey_order =  order[prey]
                     pair = "%s-%s"%(bait_orf,prey_orf)
 
 
@@ -944,7 +966,7 @@ def output_stats(data,db,out_dir):
                             diploid_corr.append(l)
         if not os.path.isdir('%s/heatmap_s'%(out_dir)):
             os.makedirs('%s/heatmap_s'%(out_dir))
-        LL2csv(s_heatmap,"%s/heatmap_s/s_heatmap_%s_%s.csv"%(out_dir,method,condition,replicate))
+        LL2csv(s_heatmap,"%s/heatmap_s/s_heatmap_%s_%s.csv"%(out_dir,condition,replicate))
 
     screening_rep_corr          =  [['Method','Conditon','ORF-pair',"Replicate1","Replicate2",'Rep1','Rep2'] ]
 
