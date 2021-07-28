@@ -205,7 +205,7 @@ def organize_data(data,map_table,tag_data,method):
                     bait_ID = bait["ID"]
                     bait_BC_ID = bait["BC_ID"]
                     bait_BC_ver = bait["BC_ver"]
-                    if bait_BC_ID not in data2[selection].keys():
+                    if bait_ID not in data2[selection].keys():
                         data2[selection][bait_ID] = {}
 
 
@@ -213,7 +213,7 @@ def organize_data(data,map_table,tag_data,method):
                         prey_ID = prey["ID"]
                         prey_BC_ID = prey["BC_ID"]
                         prey_BC_ver = prey["BC_ver"]
-                        if prey_BC_ID not in data2[selection][bait_ID].keys():
+                        if prey_ID not in data2[selection][bait_ID].keys():
                             data2[selection][bait_ID][prey_ID] = {}
 
                         for bfg in ["UpUp","DnDn"]:
@@ -580,7 +580,7 @@ def count_haploids(PCA_hap,out_dir,PCA_db):
     return reps
 
 def haploid_replicates(reps,out_dir):
-    counts= [["Method","Cond","Rep","ori","n"]]
+    counts= [["Cond","Rep","ori","n"]]
 
     for sel in reps:
         for ori in reps[sel]:
