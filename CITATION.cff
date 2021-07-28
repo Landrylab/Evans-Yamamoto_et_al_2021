@@ -6,6 +6,6 @@ authors:
   orcid: "https://orcid.org/0000-0001-6467-3827"
 title: "BFG-PCA: tools and resources that expand the potential for binary protein interaction discovery"
 version: 1.0.0
-https://doi.org/10.1101/2021.07.27.453987
+doi:10.1101/2021.07.27.453987
 date-released: 2021-07-27
 url: "https://github.com/DanYamamotoEvans/BFG-PCA"
