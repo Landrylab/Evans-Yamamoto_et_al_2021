@@ -659,9 +659,9 @@ def compute_ds(data3,sums,map_table,tag_data,method):
                                 ds       = {}
                                 ds_med   = data3[selection][bait][prey][bait_bc_ver][prey_bc_ver][bfg]["s"]+1.0/haploid_s_scores[selection]["Prey_%s_%s"%(prey,prey_bc_ver)]["median"]+1.0/haploid_s_scores[selection]["Bait_%s_%s"%(bait,bait_bc_ver)]["median"]+1.0
                                 if method =="PCA":
-                                    ds["aMedian"] = ds_med
+                                    ds["Median"] = ds_med
                                 if method =="Y2H":
-                                    ds["aMedian"] = ds_med
+                                    ds["Median"] = ds_med
                                     for b_th in range(1,100):
                                         beta     =  haploid_s_scores[selection]["Bait_%s_%s"%(bait,bait_bc_ver)]["beta"][b_th]
                                         ds["Bth_%03d"%(b_th)] = data3[selection][bait][prey][bait_bc_ver][prey_bc_ver][bfg]["s"]/beta
