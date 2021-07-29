@@ -199,7 +199,7 @@ def make_fasta_from_listoftups(L,name):
     with open("%s"%name,"w") as f:
         for I in L:
             #print I
-            f.write('>%s\n'%(str(I[0])))
+            f.write('>%s'%(str(I[0])))
             f.write('%s\n'%(str(I[1])))
         f.close()
         print("Made fna file : %s"%(name))
