@@ -762,11 +762,11 @@ def output_stats(data,hap_data,db,out_dir,method):
     ## List of files to output
     # 1. strain_abundance_control.csv   [Method,Condtion,Replicate,bait,bait_ORF,prey,prey_ORF,Raw,F
     # 2. normalized_scores           =  [['Method','Condtion','Replicate','bait','bait_ORF','prey','prey_ORF','s','ds']]
-    # 3. autoactivity_level.csv [Method,Strain_type,Conditon,AA_median,AA_median_rank,Strain]
-    # 4. bfg_corr.csv           [Method,Conditon,score_type,UpUp,DnDn]
-    # 5. diploid_corr.csv       [Method,Conditon,score_type,Diploid1,Diploid2]
-    # 6. screening_rep_corr.csv [Method,Conditon,score_type,Rep1,Rep2]
-    # 7. ORF_ori_corr.csv       [Method,Conditon,score_type,bait_Prey,Prey_Bait] #Average interanal replicates + screeening replicates
+    # 3. autoactivity_level.csv [Method,Strain_type,Condition,AA_median,AA_median_rank,Strain]
+    # 4. bfg_corr.csv           [Method,Condition,score_type,UpUp,DnDn]
+    # 5. diploid_corr.csv       [Method,Condition,score_type,Diploid1,Diploid2]
+    # 6. screening_rep_corr.csv [Method,Condition,score_type,Rep1,Rep2]
+    # 7. ORF_ori_corr.csv       [Method,Condition,score_type,bait_Prey,Prey_Bait] #Average interanal replicates + screeening replicates
     # 8. screening_meth_corr.csv[score_type,CondA,CondB,ConditonA_score,ConditonB_score] #Average interanal replicates+ screeening replicates
     # beta normalized for each strain, and then average depending on beta -> MCC and choose best beta
 
@@ -775,12 +775,12 @@ def output_stats(data,hap_data,db,out_dir,method):
 
     scores_heatmap              =  [['Method','Condtion','Replicate','bait','bait_ORF','prey','prey_ORF','s','ds']]
 
-    autoactivity_level          =  [['Method','Strain_type','Conditon','Replicate','Strain','AA_median','AA_median_rank']]
-    bfg_corr                    =  [['Method','Conditon','Replicate','score_type','UpUp','DnDn']]
-    diploid_corr                =  [['Method','Conditon','Replicate','score_type','Diploid1','Diploid2']]
-    screening_rep_corr          =  [['Method','Conditon','score_type','Bait','Prey','Rep1','Rep1_std','Rep2','Rep2_std'] ]
-    ORF_ori_corr                =  [['Method','Conditon','score_type','Bait_Prey','Bait_Prey_std','Prey_Bait','Prey_Bait_std'] ]#Average interanal replicates + screeening replicates
-    screening_meth_corr         =  [['score_type','CondA','CondB','ConditonA_score','ConditonB_score']] #Average interanal replicates+ screeening replicates
+    autoactivity_level          =  [['Method','Strain_type','Condition','Replicate','Strain','AA_median','AA_median_rank']]
+    bfg_corr                    =  [['Method','Condition','Replicate','score_type','UpUp','DnDn']]
+    diploid_corr                =  [['Method','Condition','Replicate','score_type','Diploid1','Diploid2']]
+    screening_rep_corr          =  [['Method','Condition','score_type','Bait','Prey','Rep1','Rep1_std','Rep2','Rep2_std'] ]
+    ORF_ori_corr                =  [['Method','Condition','score_type','Bait_Prey','Bait_Prey_std','Prey_Bait','Prey_Bait_std'] ]#Average interanal replicates + screeening replicates
+    screening_meth_corr         =  [['score_type','CondA','CondB','ConditionA_score','ConditionB_score']] #Average interanal replicates+ screeening replicates
 
     order = {}
     dhfr12 = [ "%s"%(i["ID"]) for i in db["DHFR12"]]
