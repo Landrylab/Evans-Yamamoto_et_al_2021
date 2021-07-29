@@ -540,7 +540,7 @@ def compute_s(data2,sums,map_table,tag_data,method):
 
 def count_haploids(PCA_hap,out_dir,PCA_db):
 
-    HAP = [["Screeening","Ori","Strain","F"]]
+    HAP = [["Screening","Ori","Strain","F"]]
 
     reps = {}
 
@@ -552,7 +552,7 @@ def count_haploids(PCA_hap,out_dir,PCA_db):
         b_orf = []
         p_orf = []
         for strain in PCA_hap[sel]["bait"]:
-            l = ["PCA %s"%(sel),"Bait",strain,PCA_hap[sel]["bait"][strain]]
+            l = ["Rep %d" %(sel.split("_")[1]),"DHFR_F3",strain,PCA_hap[sel]["bait"][strain]]
             HAP.append(l)
             b += 1
             #print (strain)
@@ -565,7 +565,7 @@ def count_haploids(PCA_hap,out_dir,PCA_db):
                 reps[sel]["bait"][bait] = [1]
 
         for strain in PCA_hap[sel]["prey"]:
-            l = ["PCA %s"%(sel),"Prey",strain,PCA_hap[sel]["prey"][strain]]
+            l = ["PCA %s"%(sel),"DHFR_F12",strain,PCA_hap[sel]["prey"][strain]]
             HAP.append(l)
             p +=1
             prey = list(set([i["ORF_SYMBOL"] for i in PCA_db[strain.split("_")[0]] if (i['ID']==strain.split("-")[0])] ))[0]
@@ -585,11 +585,11 @@ def haploid_replicates(reps,out_dir):
     for sel in reps:
         for ori in reps[sel]:
             for strain in reps[sel][ori]:
-                rep = sel.split("_")[1]
+                rep = "Rep %d" %(sel.split("_")[1])
                 con = sel.split("_")[0]
                 l = [con,rep,ori,len(reps[sel][ori][strain])]
                 counts.append(l)
-    LL2csv(counts,"%s/haplliod_n.csv"%(out_dir))
+    LL2csv(counts,"%s/Haploid_n.csv"%(out_dir))
 
 ################################
 ## Normalize signal 's'
@@ -816,9 +816,9 @@ def output_stats(data,hap_data,db,out_dir,method):
                     prey_order =  order[prey]
 
                     for bait_rep in data[cond][bait][prey]:
-                        b_order = "%s%s"%(bait_order,bait_rep)
+                        b_order = "%04d%s"%(bait_order,bait_rep)
                         for prey_rep in data[cond][bait][prey][bait_rep]:
-                            p_order = "%s%s"%(prey_order,prey_rep)
+                            p_order = "%04d%s"%(prey_order,prey_rep)
                             ave_raw = []
                             ave_F   = []
                             for bfg in data[cond][bait][prey][bait_rep][prey_rep]:
