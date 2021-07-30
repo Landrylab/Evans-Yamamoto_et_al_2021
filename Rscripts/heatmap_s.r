@@ -136,7 +136,7 @@ histogram  = ggplot(data) +
     theme_bw()  +
     xlab(bquote(~Log["10"]~ '(Raw interaction signal)'))+
     ylab(bquote(~Log["10"]~ '(Barcode counts + 1)'))+
-    facet_grid(Replicate~Condition)
+    facet_grid(Replicate~Condition,scales = "free")
 
 histogram2 = histogram+  
     scale_y_continuous(expand=c(0,0),

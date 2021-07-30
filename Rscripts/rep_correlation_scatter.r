@@ -98,12 +98,12 @@ p_width   = as.numeric(args[5])
 p_height  = as.numeric(args[6])
 
 data$group = paste(data$Condition,data$Replicate)
-dn = max(data$DnDn)[1]
-up = max(data$UpUp)[1]
-li = ceiling(log10( max(c(dn,up ))) )*1.1 
+r1 = max(data$Rep1)[1]
+r2 = max(data$Rep2)[1]
+li = ceiling(log10( max(c(r1,r2 ))) )*1.1 
 scatter  = 
   ggplot(data=data,
-         aes(x=log10(UpUp+1),y=log10(DnDn+1)),color="#000000")+ 
+         aes(x=log10(Rep1+1),y=log10(Rep2+1)),color="#000000")+ 
   geom_point(alpha=0.3,size=0.2) + 
   scale_x_continuous(expand=c(0,0),limits=c(-0.1,li)) +  
   scale_y_continuous(expand=c(0,0),limits=c(-0.1,li ))+ 
@@ -121,9 +121,9 @@ scatter  =
     axis.text.y = element_text(color="#000000",size=9.5) ,
     panel.border = element_rect(color="#000000", fill = NA,size=1) 
   )+
-  ylab(bquote( Log[10]~(~s[BC1-BC1~fusion]+1)))+
-  ylab(bquote( Log[10]~(~s[BC2-BC2~fusion]+1)))+
-  facet_grid(Replicate~Condition)
+  xlab(bquote( Log[10]~(~s["Replicate 1"]+1)))+
+  ylab(bquote( Log[10]~(~s["Replicate 2"]+1)))+
+  facet_wrap(~Condition,nrow = 1, scales = "free")
 
 p <-set_panel_size(scatter,width  = unit(width_cm, "cm"),height = unit(height_cm, "cm"))
 grid.newpage()
@@ -134,7 +134,7 @@ print("Computing Pearson correlation for each group....")
 
 func <- function(xx,f1,f2)
 {
-  return(data.frame(COR = cor(log10(xx$UpUp+1), log10(xx$DnDn+1))))
+  return(data.frame(COR = cor(log10(xx$Rep1+1), log10(xx$Rep2+1))))
 }
 
 ddply(data, .(group), func)

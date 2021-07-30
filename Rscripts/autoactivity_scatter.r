@@ -110,7 +110,7 @@ scatter  =
     panel.border = element_rect(color="#000000", fill = NA,size=1) 
     )+
   xlab("Rank")+
-  ylab(bquote(~"Median"~ '(Raw interaction signal)'))+
+  ylab(bquote(~Log[10](~"Median"~ '(Raw interaction signal)'+1)))+
   facet_wrap(~group)
 
 p <-set_panel_size(scatter,width  = unit(width_cm, "cm"),height = unit(height_cm, "cm"))

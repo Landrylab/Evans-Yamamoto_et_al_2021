@@ -108,7 +108,7 @@ heatmap = ggplot(data )+
     scale_y_discrete(expand=c(0,0),limits=rev) +
     scale_fill_gradientn(colors=c("#FFFFFF","#ADD8E6","#001144"),limits=c(ceiling(log10(min(data$F))-2),ceiling(log10(max(data$F))+1)),na.value = "#000000")+
     xlab("DHFR F[1,2] barcodes")+
-    ylab("DHFR F[3] barcodes")+facet_grid(Replicate~Condition)
+    ylab("DHFR F[3] barcodes")+facet_grid(Replicate~Condition,scales = "free")
 
 
 p <-set_panel_size(heatmap,width  = unit(width_cm, "cm"),height = unit(height_cm, "cm"))

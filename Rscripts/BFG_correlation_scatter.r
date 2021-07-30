@@ -121,9 +121,9 @@ scatter  =
     axis.text.y = element_text(color="#000000",size=9.5) ,
     panel.border = element_rect(color="#000000", fill = NA,size=1) 
   )+
-  ylab(bquote( Log[10]~(~s[BC1-BC1~fusion]+1)))+
+  xlab(bquote( Log[10]~(~s[BC1-BC1~fusion]+1)))+
   ylab(bquote( Log[10]~(~s[BC2-BC2~fusion]+1)))+
-  facet_grid(Replicate~Condition)
+  facet_grid(Replicate~Condition, scales = "free")
 
 p <-set_panel_size(scatter,width  = unit(width_cm, "cm"),height = unit(height_cm, "cm"))
 grid.newpage()

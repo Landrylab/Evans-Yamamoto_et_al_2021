@@ -104,7 +104,7 @@ def get_tagdata(f):
     return D
 
 def parse_scores(f,mcc_dir):
-    out  = [["Method","Selection","ORF_pair","n","Norm_meth","Th_method","s","Rank","Precision","Recall","MCC",'1_Two-hybrid','2_PCA','3_Union','4_ALL', 'score','TH']]
+    out  = [["Method","Selection","ORF_pair","n","Norm_meth","Th_method","score_TH","Rank","Precision","Recall","MCC",'1_Two-hybrid','2_PCA','3_Union','4_ALL', 'score','TH']]
     DATA = csv2LL(f)
     screen = f.split(".")[0]
     for l in DATA[1:]:
@@ -559,7 +559,7 @@ def compute_best_MCC(f_nm,out_dir,biogrid,sp):
                     #pprint(scores)
                     scores,MCCmax = cal_MCC(scores,biogrid)
                     info = [method,sel,norm,th_meth]
-                    out = [["Method","Selection","ORF_pair","n","Norm_meth","Th_method","score","Rank","Precision","Recall","MCC",'1_Two-hybrid','2_PCA', '3_Union','4_ALL']]
+                    out = [["Method","Selection","ORF_pair","n","Norm_meth","Th_method","PPIscore","Rank","Precision","Recall","MCC",'1_Two-hybrid','2_PCA', '3_Union','4_ALL']]
                     out+= scores
                     out_f = "%s/all_conditions/%s/SCORES_BFG-%s.csv"%(out_dir,sp,("_").join(info))
                     LL2csv(out,out_f)
