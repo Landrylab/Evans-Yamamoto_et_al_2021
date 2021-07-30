@@ -48,6 +48,7 @@ def make_fragmented_fasta(F,split_num,read_length,out_dir):
         fasta_tup = []
         for line in f:
             #print(line)
+            line = line.split("\n")[0]
             if (line_c % 4 == 0):
                 read_ID = line.split(" ")[0].replace(":","_").replace("@","")
 
@@ -110,11 +111,11 @@ def mkdb(db_file,const_seq,run_name,db_dir):
 
             c_dntag = rev_comp(dntag)
 
-            out.append(("%s-UPTAG\n"%(BC_ID),uptag))
-            out.append(("c%s-UPTAG\n"%(BC_ID),c_uptag))
+            out.append(("%s-UPTAG"%(BC_ID),uptag))
+            out.append(("c%s-UPTAG"%(BC_ID),c_uptag))
 
-            out.append(("%s-DNTAG\n"%(BC_ID),dntag))
-            out.append(("c%s-DNTAG\n"%(BC_ID),c_dntag))
+            out.append(("%s-DNTAG"%(BC_ID),dntag))
+            out.append(("c%s-DNTAG"%(BC_ID),c_dntag))
 
         if(type == "DHFR12" ):
             type = "AD"
@@ -131,11 +132,11 @@ def mkdb(db_file,const_seq,run_name,db_dir):
             c_uptag = rev_comp(uptag)
             c_dntag = rev_comp(dntag)
 
-            out.append(("%s-UPTAG\n"%(BC_ID),uptag))
-            out.append(("c%s-UPTAG\n"%(BC_ID),c_uptag))
+            out.append(("%s-UPTAG"%(BC_ID),uptag))
+            out.append(("c%s-UPTAG"%(BC_ID),c_uptag))
 
-            out.append(("%s-DNTAG\n"%(BC_ID),dntag))
-            out.append(("c%s-DNTAG\n"%(BC_ID),c_dntag))
+            out.append(("%s-DNTAG"%(BC_ID),dntag))
+            out.append(("c%s-DNTAG"%(BC_ID),c_dntag))
     make_fasta_from_listoftups(out,"%s/%s_database.fna"%(db_dir,run_name))
 
     return "%s/%s_database.fna"%(db_dir,run_name)
@@ -199,7 +200,7 @@ def make_fasta_from_listoftups(L,name):
     with open("%s"%name,"w") as f:
         for I in L:
             #print I
-            f.write('>%s'%(str(I[0])))
+            f.write('>%s\n'%(str(I[0])))
             f.write('%s\n'%(str(I[1])))
         f.close()
         print("Made fna file : %s"%(name))
