@@ -46,7 +46,7 @@ This script was built to perform experimental plans and data analysis for Barcod
 - Barcode calling
 - Normalization
 - Performance measure
-- (Visualization, TO BE UPDATED)
+- (Visualization, You will need to install [R](https://cran.r-project.org/).)
 
 ### Monte-carlo simulation of BFG screening proccess
 Since BFG screenings have multiple sampling steps while handling a complex pool of strains, we suimulate the sampling process with a Monte-Carlo simulation. This notebook follows the procedures of BFG screenings, and allows the user to estimate the nessesary paramaters for sampling. 
