@@ -1,7 +1,6 @@
 # Barcode Fusion Genetics related codes
 
 This page explains how to install and execute the BFG-PCA codes.
-Please go to the [BFG-PCA wiki (still under construction)](https://github.com/DanYamamotoEvans/BFG-PCA/wiki) for more information regarding each step of analysis.
 If you have any questions, please don't hesitate to post a question in the [Discussions](https://github.com/DanYamamotoEvans/BFG-PCA/discussions). 
 
 Please make sure you have appropriate Python and pip before starting.
